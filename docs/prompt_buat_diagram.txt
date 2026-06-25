@@ -1,0 +1,44 @@
+Halo AI, tolong buatkan rancangan diagram UML untuk sistem saya yang bernama SIMOP-KAPAL (Sistem Informasi Monitoring Dokumen dan Operasional Armada Kapal) PT Rimau Bahtera Shipping. 
+
+Sistem ini dibangun menggunakan framework Laravel, Blade Templates, Tailwind CSS, dan database MySQL. Tolong hasilkan diagram dalam format kode **Mermaid.js** agar saya bisa langsung merendernya.
+
+Berikut adalah detail arsitektur dan spesifikasi sistem kami untuk membantu Anda membuat diagram yang akurat:
+
+### 1. Struktur Basis Data (Database Schema & Atribut)
+*   **users**: id (PK), name, email, password, role (admin, manajemen), theme_preference, remember_token, timestamps.
+*   **tipe_kapals**: id (PK), nama, timestamps.
+*   **operators**: id (PK), nama, timestamps.
+*   **pelabuhans**: id (PK), nama, kode_pelabuhan, timestamps.
+*   **area_pelayarans**: id (PK), nama, timestamps.
+*   **klasifikasis**: id (PK), nama, timestamps.
+*   **jenis_dokumens**: id (PK), nama, timestamps.
+*   **kapals**: id (PK), nama_kapal, tipe_kapal_id (FK), operator_id (FK), pelabuhan_id (FK), area_pelayaran_id (FK), klasifikasi_id (FK), call_sign, no_imo, timestamps.
+*   **dokumen_kapals**: id (PK), kapal_id (FK), jenis_dokumen_id (FK), nomor_dokumen, tanggal_terbit, tanggal_expired, file (path PDF), timestamps.
+    *(Sistem memiliki logika otomatis menghitung sisa hari: jika expired < hari ini = 'expired'; jika sisa hari <= 30 = 'warning'; jika sisa hari > 30 = 'active')*
+*   **dockings**: id (PK), kapal_id (FK), tanggal_docking, lokasi, jenis_docking, status, catatan, timestamps.
+
+### 2. Aktor & Hak Akses
+*   **Admin (Staf HSE / Operasional)**: 
+    *   Memiliki hak akses penuh (CRUD) ke seluruh data master (Kapal, Tipe Kapal, Operator, Pelabuhan, Area, Klasifikasi, Jenis Dokumen).
+    *   Mengunggah dokumen kapal, menginput jadwal docking, mengakses dashboard monitoring, serta melihat & mencetak seluruh laporan.
+    *   **Baru**: Mengelola Akun Pengguna / User CRUD (membuat akun karyawan baru, mengubah peran, reset password, dan menonaktifkan pengguna). Registrasi mandiri untuk umum dinonaktifkan.
+*   **Manajemen (Direksi / Manager)**: 
+    *   Hanya memiliki hak akses membaca (Read-only) dashboard monitoring (melihat grafik masa berlaku dokumen, sebaran tipe kapal, warning expired, docking terdekat), mengunduh file dokumen, serta melihat & mencetak seluruh laporan. 
+    *   Seluruh menu input master, operasional, dan pengelolaan user disembunyikan dari sidebar navigasi.
+
+---
+
+Tolong buatkan:
+
+1.  **Use Case Diagram**: Yang memetakan interaksi Aktor (Admin dan Manajemen) dengan sistem sesuai dengan hak akses di atas (termasuk fitur baru Manajemen Pengguna).
+2.  **Activity Diagram (Swimlane)**: Untuk proses bisnis utama:
+    *   Proses Admin membuat & mengelola Akun Pengguna baru (CRUD User).
+    *   Proses Admin mengunggah & mengelola data Dokumen/Sertifikat Kapal baru (melalui login, input form, validasi, upload file, kalkulasi status otomatis, dan penyimpanan file storage).
+    *   Proses Manajemen/Admin memantau dashboard analitik dan mencetak Laporan Statistik (print-ready layout).
+3.  **Sequence Diagram**: 
+    *   Proses Admin membuat akun pengguna baru (menampilkan interaksi objek antara Admin -> View/Form -> UserController -> User Model -> Database).
+    *   Proses Admin mengunggah dokumen baru (menampilkan interaksi antara Admin -> View/Form -> DokumenKapalController -> Model/Database -> File Storage).
+4.  **Class Diagram (Class Diagram Struktur Laravel)**: 
+    *   Gambarkan relasi Class Model Eloquent di Laravel (`User`, `Kapal`, `TipeKapal`, `Operator`, `Pelabuhan`, `AreaPelayaran`, `Klasifikasi`, `JenisDokumen`, `DokumenKapal`, `Docking`) lengkap dengan property/atribut, method relasi (seperti `belongsTo`, `hasMany`), dan kardinalitasnya.
+
+Tolong berikan kode Mermaid.js yang bersih dan terstruktur untuk masing-masing diagram di atas, beserta penjelasan singkat cara membaca diagramnya. Terima kasih!
