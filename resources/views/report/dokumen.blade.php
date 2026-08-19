@@ -141,8 +141,7 @@
                 <div class="text-center">
 
                     <p>
-                        Banjarbaru,
-                        {{ now()->translatedFormat('d F Y') }}
+                        Banjarmasin, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
                     </p>
 
                     <p class="mb-20">

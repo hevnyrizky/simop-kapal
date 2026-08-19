@@ -90,7 +90,7 @@
     <div class="mt-16 flex justify-end">
         <div class="text-center">
             <p>
-                Banjarbaru,
+                Banjarmasin,
                 {{ now()->translatedFormat('d F Y') }}
             </p>
             <p class="mb-20">

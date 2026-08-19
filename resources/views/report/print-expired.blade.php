@@ -166,7 +166,7 @@
         <div class="text-center">
 
             <p>
-                Banjarbaru,
+                Banjarmasin,
                 {{ now()->translatedFormat('d F Y') }}
             </p>
 
