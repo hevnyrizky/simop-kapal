@@ -99,55 +99,30 @@
         </tbody>
     </table>
 
-    <div class="grid grid-cols-2 gap-6 mt-6">
-        <div>
-            <h3 class="font-bold text-sm mb-2">III. Distribusi Armada per Operator</h3>
-            <table class="w-full border border-collapse">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="border p-2 text-left">Nama Operator</th>
-                        <th class="border p-2 text-center" width="100">Jumlah Kapal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($operators as $op)
-                        <tr>
-                            <td class="border p-2">{{ $op->nama }}</td>
-                            <td class="border p-2 text-center font-semibold">{{ $op->kapals_count }}</td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="2" class="border p-2 text-center">Tidak ada data operator</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        <div>
-            <h3 class="font-bold text-sm mb-2">IV. Distribusi Armada per Pelabuhan</h3>
-            <table class="w-full border border-collapse">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="border p-2 text-left">Nama Pelabuhan</th>
-                        <th class="border p-2 text-center" width="100">Jumlah Kapal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($pelabuhans as $p)
-                        <tr>
-                            <td class="border p-2">{{ $p->nama }}</td>
-                            <td class="border p-2 text-center font-semibold">{{ $p->kapals_count }}</td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="2" class="border p-2 text-center">Tidak ada data pelabuhan</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </div>
+    {{-- TABEL DISTRIBUSI TIPE KAPAL --}}
+    <h3 class="font-bold text-base mb-2 mt-6">III. Distribusi Armada Berdasarkan Tipe Kapal</h3>
+    <table class="w-full border border-collapse mb-6">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border p-2 text-center" width="50">No</th>
+                <th class="border p-2 text-left">Tipe Kapal</th>
+                <th class="border p-2 text-center" width="200">Jumlah Armada</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($tipeKapals as $tk)
+                <tr>
+                    <td class="border p-2 text-center">{{ $loop->iteration }}</td>
+                    <td class="border p-2 font-semibold">{{ $tk->nama }}</td>
+                    <td class="border p-2 text-center font-bold">{{ $tk->kapals_count }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="3" class="border p-4 text-center">Tidak ada data tipe kapal</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
 
     {{-- TANDA TANGAN --}}
     <div class="mt-16 flex justify-end">

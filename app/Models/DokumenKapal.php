@@ -32,18 +32,17 @@ class DokumenKapal extends Model
             return 'unknown';
         }
 
-        $today = Carbon::today();
-        $expired = Carbon::parse($this->tanggal_expired);
+        $sisa = $this->sisa_hari;
 
-        if ($expired->lt($today)) {
+        if ($sisa < 0) {
             return 'expired';
         }
 
-        if ($expired->diffInDays($today) <= 30) {
+        if ($sisa <= 30) {
             return 'warning';
         }
 
-        return 'active';
+        return 'aktif';
     }
 
     public function getSisaHariAttribute()

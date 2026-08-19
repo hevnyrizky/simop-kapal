@@ -5,6 +5,7 @@
     'value' => '',
     'placeholder' => '',
     'required' => false,
+    'helper' => '',
 ])
 
 <div>
@@ -25,6 +26,12 @@
                          bg-white dark:bg-gray-700 text-gray-900 dark:text-white
                          focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
         ]) }}>
+
+    @if ($helper)
+        <p class="mt-1.5 text-xs text-blue-600 dark:text-blue-400 flex items-center gap-1">
+            <i class="fa-solid fa-circle-info"></i> {{ $helper }}
+        </p>
+    @endif
 
     @error($name)
         <p class="mt-2 text-sm text-red-500">

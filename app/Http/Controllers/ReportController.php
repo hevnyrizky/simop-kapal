@@ -581,8 +581,6 @@ class ReportController extends Controller
         )->count();
 
         $tipeKapals = TipeKapal::withCount('kapals')->get();
-        $operators = Operator::withCount('kapals')->get();
-        $pelabuhans = Pelabuhan::withCount('kapals')->get();
         $jenisDokumens = JenisDokumen::withCount('dokumenKapal')->get();
 
         return view('report.statistik', compact(
@@ -592,8 +590,6 @@ class ReportController extends Controller
             'warning',
             'aktif',
             'tipeKapals',
-            'operators',
-            'pelabuhans',
             'jenisDokumens'
         ));
     }
@@ -609,8 +605,6 @@ class ReportController extends Controller
         $aktif = DokumenKapal::whereDate('tanggal_expired', '>', now()->addDays(30))->count();
 
         $tipeKapals = TipeKapal::withCount('kapals')->get();
-        $operators = Operator::withCount('kapals')->get();
-        $pelabuhans = Pelabuhan::withCount('kapals')->get();
         $jenisDokumens = JenisDokumen::withCount('dokumenKapal')->get();
 
         return view('report.print-statistik', compact(
@@ -620,8 +614,6 @@ class ReportController extends Controller
             'warning',
             'aktif',
             'tipeKapals',
-            'operators',
-            'pelabuhans',
             'jenisDokumens'
         ));
     }
